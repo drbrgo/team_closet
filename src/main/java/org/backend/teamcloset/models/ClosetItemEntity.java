@@ -17,14 +17,20 @@ public class ClosetItemEntity {
     private Long quantity;
     private String gender;
     private String bodyPart;
+    private Float price;
 
-    public ClosetItemEntity(String model, String size, String season, Long quantity, String gender, String bodyPart) {
+    public ClosetItemEntity(String model, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
         this.model = model;
         this.size = size;
         this.season = season;
         this.quantity = quantity;
         this.gender = gender;
         this.bodyPart = bodyPart;
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getModel() {
@@ -73,5 +79,13 @@ public class ClosetItemEntity {
 
     public void setBodyPart(String bodyPart) {
         this.bodyPart = bodyPart;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

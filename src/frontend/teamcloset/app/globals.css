@@ -5,6 +5,11 @@
 body {
   background-color: rgb(127, 236, 255);
 }
+
+#customInput {
+  display: none;
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
