@@ -41,16 +41,15 @@ export default function AddClosetItem() {
     // }
     
     return(
-        <div>
-        <p>add an item form will go here</p>
-        <form onSubmit={handleSubmit}>
+        <div className="flex justify-center">
+        <form onSubmit={handleSubmit} className="grid justify-items-center">
             <h1>Add an item</h1>
             <div>
-                <h2>Model:</h2>
+                <h2 className="grid justify-items-center">Model:</h2>
                 <input className="bg-rose-50 rounded-md" type="text" id="model" required minLength={2} maxLength={70} />
             </div>
             <div>
-                <h2>Size:</h2>
+                <h2 className="grid justify-items-center">Size:</h2>
                 <select defaultValue="default" id="size" className="bg-rose-50 rounded-md">
                     <option value="default" disabled>Select size</option>
                     <option value="xxs">XXS</option>
@@ -63,7 +62,7 @@ export default function AddClosetItem() {
                 </select>
             </div>
             <div>
-                <h2>Gender:</h2>
+                <h2 className="grid justify-items-center">Gender:</h2>
                 <select defaultValue="default" id="gender" className="bg-rose-50 rounded-md">
                     <option value="default" disabled>Select gender</option>
                     <option value="unisex">Unisex</option>
@@ -72,7 +71,7 @@ export default function AddClosetItem() {
                 </select>
             </div>
             <div>
-                <h2>Season:</h2>
+                <h2 className="grid justify-items-center">Season:</h2>
                 <select defaultValue="default" id="season" className="bg-rose-50 rounded-md">
                    <option value="default" disabled>Select season</option>
                    <option value="summer">Summer</option>
@@ -81,7 +80,7 @@ export default function AddClosetItem() {
                 </select>
             </div>
             <div>
-                <h2>Body part:</h2>
+                <h2 className="grid justify-items-center">Body part:</h2>
                 <select defaultValue="default" id="bodyPart" className="bg-rose-50 rounded-md">
                     <option value="default" disabled>Select body part</option>
                     <option value="tops">Tops</option>
@@ -90,13 +89,14 @@ export default function AddClosetItem() {
                 </select>
             </div>
             <div>
-                <h2>Price:</h2>
+                <h2 className="grid justify-items-center">Price:</h2>
                 <input className="bg-rose-50 rounded-md" type="number" min="0.00" max="10000.00" step="0.01" id="price" defaultValue="0" />
             </div>
             <div>
-                <h2>Quantity:</h2>
+                <h2 className="grid justify-items-center">Quantity:</h2>
                 <input className="bg-rose-50 rounded-md" type="number" min="0" max="100" step="1" id="quantity" defaultValue="1" />
             </div>
+            <br></br>
             {/* <div>
                 <h2>Model List:</h2>
                 <select id="modelList">
