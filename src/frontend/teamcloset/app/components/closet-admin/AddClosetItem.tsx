@@ -1,10 +1,46 @@
 'use client';
 
 export default function AddClosetItem() {
+    
+    const webUrl = "http://localhost:8080"
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(`button "smashed"`);
+
+        const data = {
+            model: String(event.target.model.value),
+            size: String(event.target.size.value),
+            gender: String(event.target.gender.value),
+            season: String(event.target.season.value),
+            bodyPart: String(event.target.bodyPart.value),
+            price: Number(event.target.price.value),
+            quantity: Number(event.target.quantity.value)
+        }
+        console.log("front end data: " + data);
+        // console.log(`button "smashed"`);
+
+        try {
+            const response = await fetch (webUrl + "/admin/addClosetItem/", {
+            method: "POST",
+            headers: { 
+            "Content Type": "application/JSON" 
+            },
+            body: JSON.stringify(data),
+        });
+
+        //check for 4 or 5 response code
+
+        if (!response.ok) {
+            throw new Error ("Cannot save new item")
+        }
+
+        if (response.ok) {
+            console.log("backend data: " + response.body);
+        }
+
+     } catch (error) {
+        console.log("Caught an error from backend: " + error);
+        }
     }
 
     //shelving model list select element with "create new" option for now. perhaps will be cleaner to 
@@ -90,11 +126,11 @@ export default function AddClosetItem() {
             </div>
             <div>
                 <h2 className="grid justify-items-center">Price:</h2>
-                <input className="bg-rose-50 rounded-md" type="number" min="0.00" max="10000.00" step="0.01" id="price" defaultValue="0" />
+                <input className="bg-rose-50 rounded-md" type="number" min="1.00" max="10000.00" step="0.01" id="price" defaultValue="0" />
             </div>
             <div>
                 <h2 className="grid justify-items-center">Quantity:</h2>
-                <input className="bg-rose-50 rounded-md" type="number" min="0" max="100" step="1" id="quantity" defaultValue="1" />
+                <input className="bg-rose-50 rounded-md" type="number" min="1" max="100" step="1" id="quantity" defaultValue="1" />
             </div>
             <br></br>
             {/* <div>
