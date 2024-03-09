@@ -92,7 +92,7 @@ export default function AddClosetItem() {
     return(
         <div className="flex justify-center">
         <form onSubmit={handleSubmit} className="grid justify-items-center">
-            <h1>Add an item</h1>
+            <h1>Add an item here!</h1>
             <div>
                 <h2 className="grid justify-items-center">Model:</h2>
                 <input className="bg-rose-50 rounded-md" type="text" id="model" required minLength={2} maxLength={70} />

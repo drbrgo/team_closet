@@ -4,6 +4,7 @@ package org.backend.teamcloset.models.dto;
 public class ClosetItemDTO {
 
     private String model;
+    private String series;
     private String size;
     private String season;
     private Long quantity;
@@ -11,8 +12,9 @@ public class ClosetItemDTO {
     private String bodyPart;
     private Float price;
 
-    public ClosetItemDTO(String model, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
+    public ClosetItemDTO(String model, String series, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
         this.model = model;
+        this.series = series;
         this.size = size;
         this.season = season;
         this.quantity = quantity;
@@ -23,6 +25,10 @@ public class ClosetItemDTO {
 
     public String getModel() {
         return model;
+    }
+
+    public String getSeries() {
+        return series;
     }
 
     public String getSize() {
