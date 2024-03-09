@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping (value = "/admin")
 public class ClosetAdminController {
 
-    @PostMapping("/addClosetItem")
+    @PostMapping("/addclosetitem")
     public ResponseEntity<?> addClosetItem(@RequestBody ClosetItemDTO closetItemDTO) {
+        System.out.println(closetItemDTO);
         return new ResponseEntity<>(closetItemDTO, HttpStatus.OK);
     }
 }

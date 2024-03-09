@@ -2,7 +2,7 @@
 
 export default function AddClosetItem() {
     
-    const webUrl = "http://localhost:8080"
+    const webUrl = "http://localhost:8080";
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -16,32 +16,45 @@ export default function AddClosetItem() {
             price: Number(event.target.price.value),
             quantity: Number(event.target.quantity.value)
         }
-        console.log("front end data: " + data);
+        console.log("front end data: " + JSON.stringify(data));
         // console.log(`button "smashed"`);
 
-        try {
-            const response = await fetch (webUrl + "/admin/addClosetItem/", {
-            method: "POST",
-            headers: { 
-            "Content Type": "application/JSON" 
-            },
-            body: JSON.stringify(data),
-        });
+        await fetch (webUrl + "/admin/addclosetitem", {
+                    method: 'POST',
+                    headers: { 
+                    "Content-Type": "application/json" 
+                    },
+                    body: JSON.stringify(data),
+                }).then((response) => response.json()).then(data => {
+                    console.log("backend data: " + JSON.stringify(data));
+                })
+            };
 
-        //check for 4 or 5 response code
 
-        if (!response.ok) {
-            throw new Error ("Cannot save new item")
-        }
+        //let's try a different way
+    //     try {
+    //         const response = await fetch (webUrl + "/admin/addclosetitem/", {
+    //         method: "POST",
+    //         headers: { 
+    //         "Content Type": "application/JSON" 
+    //         },
+    //         body: JSON.stringify(data),
+    //     });
 
-        if (response.ok) {
-            console.log("backend data: " + response.body);
-        }
+    //     //check for 4 or 5 response code
 
-     } catch (error) {
-        console.log("Caught an error from backend: " + error);
-        }
-    }
+    //     if (!response.ok) {
+    //         throw new Error ("Cannot save new item")
+    //     }
+
+    //     if (response.ok) {
+    //         console.log("backend data: " + response.body);
+    //     }
+
+    //  } catch (error) {
+    //     console.log("Caught an error from backend: " + error);
+    //     }
+    // }
 
     //shelving model list select element with "create new" option for now. perhaps will be cleaner to 
     //create a "create new model" component, which will then add the new value to the drop down list

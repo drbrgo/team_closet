@@ -1,17 +1,13 @@
 package org.backend.teamcloset.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
-public class ClosetItemEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ClosetItemEntity extends AbstractEntity {
 
     private String model;
+
+    private String series;
     private String size;
     private String season;
     private Long quantity;
@@ -19,8 +15,10 @@ public class ClosetItemEntity {
     private String bodyPart;
     private Float price;
 
-    public ClosetItemEntity(String model, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
+    public ClosetItemEntity() {}
+    public ClosetItemEntity(String model, String series, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
         this.model = model;
+        this.series = series;
         this.size = size;
         this.season = season;
         this.quantity = quantity;
@@ -29,9 +27,6 @@ public class ClosetItemEntity {
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public String getModel() {
         return model;
@@ -39,6 +34,14 @@ public class ClosetItemEntity {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
     }
 
     public String getSize() {
