@@ -1,14 +1,38 @@
 'use client';
 
-export default function AddClosetItem() {
+import { useEffect, useState } from "react";
+
+interface Model {
+    id: number,
+    modelName: string
+}
+
+export default function AddClosetItem(props: any) {
+
+    const [models, setModels] = useState<Model[]>([]);
+    const [selectedModel, setSelectedModel] = useState<number | null>(null);
     
     const webUrl = "http://localhost:8080";
+
+    useEffect(() => {
+        fetch(webUrl + "/admin/getmodels", {
+            method: 'GET',
+                    headers: { 
+                    "Content-Type": "application/json" 
+                    }
+        })
+      .then(response => response.json())
+      .then(data => setModels(data))
+      .catch(error => console.error('Error fetching models: ', error));
+  }, []);
+    
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
         const data = {
             model: String(event.target.model.value),
+            series: String(event.target.series.value),
             size: String(event.target.size.value),
             gender: String(event.target.gender.value),
             season: String(event.target.season.value),
@@ -95,7 +119,22 @@ export default function AddClosetItem() {
             <h1>Add an item here!</h1>
             <div>
                 <h2 className="grid justify-items-center">Model:</h2>
-                <input className="bg-rose-50 rounded-md" type="text" id="model" required minLength={2} maxLength={70} />
+                {/* <input className="bg-rose-50 rounded-md" type="text" id="model" required minLength={2} maxLength={70} /> */}
+                <select id="model" className="bg-rose-50 rounded-md" value={selectedModel ?? ''} onChange={(e) => setSelectedModel(parseInt(e.target.value))}>
+                <option value="" disabled>Select</option>
+                {models.map(model => (
+                <option key={model.id} value={model.modelName}>{model.modelName}</option>
+                ))}
+                </select>
+            </div>
+            <div>
+                <h2 className="grid justify-items-center">Series:</h2>
+                <select defaultValue="default" id="series" className="bg-rose-50 rounded-md">
+                    <option value="default" disabled>Select series</option>
+                    <option value="og">OG -- Pink/Yellow/Green/White</option>
+                    <option value="2.0">2.0 -- Green/Black/White</option>
+                    <option value="3.0">3.0 -- Green Watercolor</option>
+                </select>
             </div>
             <div>
                 <h2 className="grid justify-items-center">Size:</h2>
