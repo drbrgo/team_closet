@@ -9,22 +9,8 @@ interface Model {
 
 export default function AddClosetItem() {
 
-    // const [models, setModels] = useState<Model[]>([]);
-    // const [selectedModel, setSelectedModel] = useState<number | null>(null);
     
     const webUrl = "http://localhost:8080";
-
-//     useEffect(() => {
-//         fetch(webUrl + "/admin/getmodels", {
-//             method: 'GET',
-//                     headers: { 
-//                     "Content-Type": "application/json" 
-//                     }
-//         })
-//       .then(response => response.json())
-//       .then(data => setModels(data))
-//       .catch(error => console.error('Error fetching models: ', error));
-//   }, []);
     
 
     const handleSubmit = async (event: any) => {
