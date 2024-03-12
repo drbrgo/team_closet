@@ -1,18 +1,15 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-interface Model {
-    id: number,
-    modelName: string
-}
 
 export default function AddClosetItem() {
 
     
     const webUrl = "http://localhost:8080";
-    
 
+    const [errorMessage, setErrorMessage] = useState('');
+    
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
@@ -35,9 +32,21 @@ export default function AddClosetItem() {
                     "Content-Type": "application/json" 
                     },
                     body: JSON.stringify(data),
-                }).then((response) => response.json()).then(data => {
+                }).then((response) => {
+                    if (response.ok) {
+                    return response.json();
+                    } else if (response.status === 409) {
+                        throw new Error ("Hold up! This item already exists. Please go to the admin closet and modify the quantity instead.");
+                    } else {
+                        throw new Error ("Error saving new item. Please ask your software provider for help");
+                    }
+                }).then(data => {
                     console.log("backend data: " + JSON.stringify(data));
-                })
+                    setErrorMessage('');
+                }).catch((error => {
+                    setErrorMessage(error.message);
+                    console.error
+                }))
             };
 
 
@@ -103,6 +112,8 @@ export default function AddClosetItem() {
         <div className="flex justify-center">
         <form onSubmit={handleSubmit} className="grid justify-items-center">
             <h1>Add an item here!</h1>
+             {/* error message only displayes if present */}
+        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
             <div>
                 <h2 className="grid justify-items-center">Model:</h2>
                 <input className="bg-rose-50 rounded-md" type="text" id="model" required minLength={2} maxLength={70} />

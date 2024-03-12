@@ -48,6 +48,7 @@ public class ClosetAdminController {
 
         }
 
+        //otherwise save new item in closet item repo and return 200 code
         ClosetItemEntity newItem = new ClosetItemEntity(closetItemDTO.getModel(), closetItemDTO.getSeries(), closetItemDTO.getSize(), closetItemDTO.getSeason(),
                 closetItemDTO.getQuantity(), closetItemDTO.getGender(), closetItemDTO.getBodyPart(), closetItemDTO.getPrice());
 
