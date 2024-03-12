@@ -1,12 +1,9 @@
 package org.backend.teamcloset.models.dto;
 
 
-import org.backend.teamcloset.models.ModelEntity;
-import org.springframework.ui.Model;
-
 public class ClosetItemDTO {
 
-    private ModelEntity model;
+    private String model;
     private String series;
     private String size;
     private String season;
@@ -15,7 +12,7 @@ public class ClosetItemDTO {
     private String bodyPart;
     private Float price;
 
-    public ClosetItemDTO(ModelEntity model, String series, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
+    public ClosetItemDTO(String model, String series, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
         this.model = model;
         this.series = series;
         this.size = size;
@@ -26,7 +23,7 @@ public class ClosetItemDTO {
         this.price = price;
     }
 
-    public ModelEntity getModel() {
+    public String getModel() {
         return model;
     }
 

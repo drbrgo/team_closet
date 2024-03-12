@@ -7,9 +7,8 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class ClosetItemEntity extends AbstractEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private ModelEntity model;
+
+    private String model;
 
     private String series;
     private String size;
@@ -20,7 +19,7 @@ public class ClosetItemEntity extends AbstractEntity {
     private Float price;
 
     public ClosetItemEntity() {}
-    public ClosetItemEntity(ModelEntity model, String series, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
+    public ClosetItemEntity(String model, String series, String size, String season, Long quantity, String gender, String bodyPart, Float price) {
         this.model = model;
         this.series = series;
         this.size = size;
@@ -32,11 +31,11 @@ public class ClosetItemEntity extends AbstractEntity {
     }
 
 
-    public ModelEntity getModel() {
+    public String getModel() {
         return model;
     }
 
-    public void setModel(ModelEntity model) {
+    public void setModel(String model) {
         this.model = model;
     }
 

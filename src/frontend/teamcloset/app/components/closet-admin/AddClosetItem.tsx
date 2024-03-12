@@ -7,24 +7,24 @@ interface Model {
     modelName: string
 }
 
-export default function AddClosetItem(props: any) {
+export default function AddClosetItem() {
 
-    const [models, setModels] = useState<Model[]>([]);
-    const [selectedModel, setSelectedModel] = useState<number | null>(null);
+    // const [models, setModels] = useState<Model[]>([]);
+    // const [selectedModel, setSelectedModel] = useState<number | null>(null);
     
     const webUrl = "http://localhost:8080";
 
-    useEffect(() => {
-        fetch(webUrl + "/admin/getmodels", {
-            method: 'GET',
-                    headers: { 
-                    "Content-Type": "application/json" 
-                    }
-        })
-      .then(response => response.json())
-      .then(data => setModels(data))
-      .catch(error => console.error('Error fetching models: ', error));
-  }, []);
+//     useEffect(() => {
+//         fetch(webUrl + "/admin/getmodels", {
+//             method: 'GET',
+//                     headers: { 
+//                     "Content-Type": "application/json" 
+//                     }
+//         })
+//       .then(response => response.json())
+//       .then(data => setModels(data))
+//       .catch(error => console.error('Error fetching models: ', error));
+//   }, []);
     
 
     const handleSubmit = async (event: any) => {
@@ -119,13 +119,7 @@ export default function AddClosetItem(props: any) {
             <h1>Add an item here!</h1>
             <div>
                 <h2 className="grid justify-items-center">Model:</h2>
-                {/* <input className="bg-rose-50 rounded-md" type="text" id="model" required minLength={2} maxLength={70} /> */}
-                <select id="model" className="bg-rose-50 rounded-md" value={selectedModel ?? ''} onChange={(e) => setSelectedModel(parseInt(e.target.value))}>
-                <option value="" disabled>Select</option>
-                {models.map(model => (
-                <option key={model.id} value={model.modelName}>{model.modelName}</option>
-                ))}
-                </select>
+                <input className="bg-rose-50 rounded-md" type="text" id="model" required minLength={2} maxLength={70} />
             </div>
             <div>
                 <h2 className="grid justify-items-center">Series:</h2>

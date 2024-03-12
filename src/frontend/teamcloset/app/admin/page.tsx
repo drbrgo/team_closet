@@ -5,7 +5,6 @@ export default function adminRoot() {
     return (
         <div className = "flex items-start space-x-80">
         <p>this is the admin root</p>
-        <AddModelType /> 
         <AddClosetItem />
         </div>
     )
