@@ -1,6 +1,7 @@
 'use client'
 
 import {useState, useEffect} from 'react';
+import ClosetItemCard from './ClosetItemCard';
 
 interface ClosetItem {
     id: number,
@@ -27,12 +28,21 @@ export default function DisplayTeamCloset() {
             await fetch(webUrl + "/closet/getclosetitems")
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setClosetItems(data);
             })
         }
     getClosetItems();
 
+    });
+
+    const allItems = closetItems.map((item: any) => {
+        return (
+            <ClosetItemCard
+            key={item.id}
+            item={item}
+            />
+        )
     })
 
 
@@ -40,7 +50,7 @@ export default function DisplayTeamCloset() {
         <div>
         <p>This is the team closet, showing all available items</p>
         <div>
-        <h1>Closet Items</h1>
+        {/* <h1>Closet Items</h1>
             <ul>
                 {closetItems.map((item) => (
                     <li key={item.id}>
@@ -49,6 +59,11 @@ export default function DisplayTeamCloset() {
                     </li>
                 ))}
             </ul>
+        </div> */}
+        {allItems}
+        <div>
+            {/* <p>{closetItems}</p> */}
+        </div>
         </div>
         </div>
     )
