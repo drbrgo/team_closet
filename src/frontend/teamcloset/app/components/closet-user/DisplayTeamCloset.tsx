@@ -22,19 +22,21 @@ export default function DisplayTeamCloset() {
 
     const [closetItems, setClosetItems] = useState<ClosetItem[]>([]); 
 
+    const [sizeFilter, setSizeFilter] = useState("");
+
     useEffect(function() {
         const getClosetItems = async() => {
 
-            await fetch(webUrl + "/closet/getclosetitems")
+            await fetch(webUrl + "/closet/getclosetitems" + (sizeFilter ? `?param=${sizeFilter}` : ""))
             .then(response => response.json())
             .then(data => {
-                // console.log(data);
+                console.log(data);
                 setClosetItems(data);
             })
         }
     getClosetItems();
 
-    });
+    }, [sizeFilter]); //calls useEffect whenever filter changes
 
     const allItems = closetItems.map((item: any) => {
         return (
@@ -45,11 +47,28 @@ export default function DisplayTeamCloset() {
         )
     })
 
+    const handleSizeFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSizeFilter(event.target.value);
+    };
+
 
     return (
         <div>
         <p>This is the team closet, showing all available items</p>
-        <div>
+        <div className="border-2 p-2 m-2">
+            <p>this is the size filter</p>
+            <select value={sizeFilter} onChange={handleSizeFilter}>
+                <option value="">Select size</option>
+                <option value="xxs">XXSmall</option>
+                <option value="xs">XSmall</option>
+                <option value="s">Small</option>
+                <option value="m">Medium</option>
+                <option value="l">Large</option>
+                <option value="xl">XLarge</option>
+                <option value="xxl">XXLarge</option>
+            </select>
+        </div>
+        <div className='grid lg: grid-cols-5 md: grid-cols-3'>
         {/* <h1>Closet Items</h1>
             <ul>
                 {closetItems.map((item) => (
