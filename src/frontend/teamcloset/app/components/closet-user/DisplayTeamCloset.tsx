@@ -24,10 +24,12 @@ export default function DisplayTeamCloset() {
 
     const [sizeFilter, setSizeFilter] = useState("");
 
+    const [seriesFilter, setSeriesFilter] = useState("")
+
     useEffect(function() {
         const getClosetItems = async() => {
 
-            await fetch(webUrl + "/closet/getclosetitems" + (sizeFilter ? `?size=${sizeFilter}` : ""))
+            await fetch(webUrl + "/closet/getclosetitems" + (sizeFilter ? `?size=${sizeFilter}` : "") + (seriesFilter ? `?series=${seriesFilter}` : ""))
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -36,7 +38,7 @@ export default function DisplayTeamCloset() {
         }
     getClosetItems();
 
-    }, [sizeFilter]); //calls useEffect whenever filter changes
+    }, [sizeFilter, seriesFilter]); //calls useEffect whenever filter changes
 
     const allItems = closetItems.map((item: any) => {
         return (
@@ -50,6 +52,10 @@ export default function DisplayTeamCloset() {
     const handleSizeFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSizeFilter(event.target.value);
     };
+
+    const handleSeriesFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSeriesFilter(event.target.value);
+    }
 
 
     return (
@@ -66,6 +72,13 @@ export default function DisplayTeamCloset() {
                 <option value="l">Large</option>
                 <option value="xl">XLarge</option>
                 <option value="xxl">XXLarge</option>
+            </select>
+            <p>this is the series filter</p>
+            <select value={seriesFilter} onChange={handleSeriesFilter}>
+                <option value="">Select series</option>
+                <option value="og">OG -- Pink/Yellow/Green/White</option>
+                <option value="2.0">2.0 -- Green/Black/White</option>
+                <option value="3.0">3.0 -- Green Watercolor</option>
             </select>
         </div>
         <div className='grid lg: grid-cols-5 md: grid-cols-3'>
