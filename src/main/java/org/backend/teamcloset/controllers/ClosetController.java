@@ -25,16 +25,20 @@ public class ClosetController {
     ClosetItemRepository closetItemRepository;
 
     @GetMapping("/getclosetitems")
-    public ResponseEntity<?> displayClosetItems (@RequestParam(required = false)String sizeFilter){
+    public ResponseEntity<?> displayClosetItems (@RequestParam(required = false)String size){
         //intellij shows that sizeFilter is always null; network tab shows that fetch url
         // does have the '?param=xxs' appended if xxs is selected
-        if (sizeFilter == null) {
-            System.out.println(sizeFilter);
+        //is it because the request param is named sizeFilter here and param on the front end?
+        //yes--also needed to change closetitemrepository method findbysize to return an iterable
+        //not a single closetitemobject
+        if (size == null) {
+            System.out.println(size);
+            System.out.println(closetItemRepository.findAll());
             return new ResponseEntity<>(closetItemRepository.findAll(), HttpStatus.OK);
         } else {
-            System.out.println(sizeFilter);
-            System.out.println(closetItemRepository.findBySize(sizeFilter));
-            return new ResponseEntity<>(closetItemRepository.findBySize(sizeFilter), HttpStatus.OK);
+            System.out.println(size);
+            System.out.println(closetItemRepository.findBySize(size));
+            return new ResponseEntity<>(closetItemRepository.findBySize(size), HttpStatus.OK);
         }
 
     }
