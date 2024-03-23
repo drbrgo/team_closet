@@ -27,7 +27,7 @@ public class ClosetController {
     @GetMapping("/getclosetitems")
     public ResponseEntity<?> displayClosetItems (
             @RequestParam(required = false)String size,
-            @RequestParam(required = false)String series
+            @RequestParam(required = false)String selectSeries
     ){
         //intellij shows that sizeFilter is always null; network tab shows that fetch url
         // does have the '?param=xxs' appended if xxs is selected
@@ -35,22 +35,35 @@ public class ClosetController {
         //yes--also needed to change closetitemrepository method findbysize to return an iterable
         //not a single closetitemobject
 
-        Iterable<ClosetItemEntity> filteredClosetItems;
+        //trying to circumnavigate findby stacking issues by creating an iterable and then looping through it to find
+        //all instances where series=selectSeries -- this doesn't work either... something is up
 
-        if (size == null && series == null) {
+        Iterable<ClosetItemEntity> sizeFilteredClosetItems = closetItemRepository.findBySize(size);
+        ArrayList<ClosetItemEntity> targetClosetItems = new ArrayList<ClosetItemEntity>();
+
+
+        if (size == null && selectSeries == null) {
             System.out.println(closetItemRepository.findAll());
             return new ResponseEntity<>(closetItemRepository.findAll(), HttpStatus.OK);
-        } else if(series == null) {
+        } else if(selectSeries == null) {
             System.out.println(closetItemRepository.findBySize(size));
-            return new ResponseEntity<>(closetItemRepository.findBySize(size), HttpStatus.OK);
+            return new ResponseEntity<>(sizeFilteredClosetItems, HttpStatus.OK);
         } else if(size ==null) {
-            System.out.println(closetItemRepository.findBySeries(series));
-            return new ResponseEntity<>(closetItemRepository.findBySeries(series), HttpStatus.OK);
+            System.out.println(closetItemRepository.findBySeries(selectSeries));
+            return new ResponseEntity<>(closetItemRepository.findBySeries(selectSeries), HttpStatus.OK);
         }else {
             System.out.println(size);
-            System.out.println(series);
-            System.out.println(closetItemRepository.findBySizeAndSeries(size, series));
-            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, series), HttpStatus.OK);
+            System.out.println(selectSeries);
+            System.out.println(closetItemRepository.findBySizeAndSeries(size, selectSeries));
+            for(ClosetItemEntity item : sizeFilteredClosetItems) {
+                if(item.getSeries().equals(selectSeries)) {
+                    targetClosetItems.add(item);
+                }
+            }
+            System.out.println(sizeFilteredClosetItems);
+            System.out.println(targetClosetItems);
+            return new ResponseEntity<>(targetClosetItems, HttpStatus.OK);
+            //return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, series), HttpStatus.OK);
         }
 
     }
