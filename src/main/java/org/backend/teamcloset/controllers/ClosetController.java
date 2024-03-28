@@ -27,7 +27,10 @@ public class ClosetController {
     @GetMapping("/getclosetitems")
     public ResponseEntity<?> displayClosetItems (
             @RequestParam(required = false)String size,
-            @RequestParam(required = false)String selectSeries
+            @RequestParam(required = false)String selectSeries,
+            @RequestParam(required = false)String gender,
+            @RequestParam(required = false)String season,
+            @RequestParam(required = false)String bodyPart
     ){
         //intellij shows that sizeFilter is always null; network tab shows that fetch url
         // does have the '?param=xxs' appended if xxs is selected
@@ -37,42 +40,36 @@ public class ClosetController {
 
         //trying to circumnavigate findby stacking issues by creating an iterable and then looping through it to find
         //all instances where series=selectSeries -- this doesn't work either... something is up
+        //all the trouble was caused by the http request formatted with a '?' instead of a '&' between two query params
 
         Iterable<ClosetItemEntity> sizeFilteredClosetItems = closetItemRepository.findBySize(size);
         ArrayList<ClosetItemEntity> targetClosetItems = new ArrayList<ClosetItemEntity>();
 
-        if (size == null && selectSeries == null) {
-            System.out.println("both size and series are null");
+        if (size == null && selectSeries == null && gender == null && season == null && bodyPart == null) {
+            System.out.println("size, series, gender, season and part are null");
 
             return new ResponseEntity<>(closetItemRepository.findAll(), HttpStatus.OK);
 
-        } else if(selectSeries == null && size != null) {
-            System.out.println("series is null");
+        } else if(selectSeries == null && size != null && gender == null && season == null && bodyPart == null) {
+            System.out.println("everything but size is null");
             return new ResponseEntity<>(sizeFilteredClosetItems, HttpStatus.OK);
 
-        } else if(size == null && selectSeries!= null) {
-            System.out.println("size is null");
+        } else if(size == null && selectSeries!= null && gender == null && season == null && bodyPart == null) {
+            System.out.println("everything but series is null");
             return new ResponseEntity<>(closetItemRepository.findBySeries(selectSeries), HttpStatus.OK);
         }
-//        else if (size != null && selectSeries != null) {
-////            System.out.println(size);
-////            System.out.println(selectSeries);
-////            System.out.println(closetItemRepository.findBySizeAndSeries(size, selectSeries));
-//            System.out.println("tf?");
-//            for(ClosetItemEntity item : sizeFilteredClosetItems) {
-////                System.out.println(item.getModel());
-//                if(item.getSeries().equals(selectSeries)) {
-//                    targetClosetItems.add(item);
-//                }
-//            }
-////            System.out.println(sizeFilteredClosetItems);
-////            System.out.println(targetClosetItems);
-//            return new ResponseEntity<>(targetClosetItems, HttpStatus.OK);
-////            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, selectSeries), HttpStatus.OK);
-//        }
-        else {
-            System.out.println("conditionals finally work");
+        else if (size !=null && selectSeries != null && gender == null && season == null && bodyPart == null){
+            System.out.println("gender and season and part null");
             return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, selectSeries), HttpStatus.OK);
+        }
+//
+        else if (size !=null && selectSeries != null && gender != null && season == null && bodyPart == null){
+            System.out.println("season and part null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndGender(size, selectSeries, gender), HttpStatus.OK);
+        }
+
+        else{
+            return new ResponseEntity<>(closetItemRepository.findAll(), HttpStatus.BAD_REQUEST);
         }
 
     }

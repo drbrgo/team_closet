@@ -6,6 +6,7 @@ return(
         <p>Series: {props.item.series}</p>
         <p>Size: {props.item.size}</p>
         <p>Season: {props.item.season}</p>
+        <p>Gender: {props.item.gender}</p>
         <p>Suggested Price: {props.item.price}</p>
         <p>Quantity: {props.item.quantity}</p>
     </div>
