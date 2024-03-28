@@ -41,29 +41,38 @@ public class ClosetController {
         Iterable<ClosetItemEntity> sizeFilteredClosetItems = closetItemRepository.findBySize(size);
         ArrayList<ClosetItemEntity> targetClosetItems = new ArrayList<ClosetItemEntity>();
 
-
         if (size == null && selectSeries == null) {
-            System.out.println(closetItemRepository.findAll());
+            System.out.println("both size and series are null");
+
             return new ResponseEntity<>(closetItemRepository.findAll(), HttpStatus.OK);
-        } else if(selectSeries == null) {
-            System.out.println(closetItemRepository.findBySize(size));
+
+        } else if(selectSeries == null && size != null) {
+            System.out.println("series is null");
             return new ResponseEntity<>(sizeFilteredClosetItems, HttpStatus.OK);
-        } else if(size ==null) {
-            System.out.println(closetItemRepository.findBySeries(selectSeries));
+
+        } else if(size == null && selectSeries!= null) {
+            System.out.println("size is null");
             return new ResponseEntity<>(closetItemRepository.findBySeries(selectSeries), HttpStatus.OK);
-        }else {
-            System.out.println(size);
-            System.out.println(selectSeries);
-            System.out.println(closetItemRepository.findBySizeAndSeries(size, selectSeries));
-            for(ClosetItemEntity item : sizeFilteredClosetItems) {
-                if(item.getSeries().equals(selectSeries)) {
-                    targetClosetItems.add(item);
-                }
-            }
-            System.out.println(sizeFilteredClosetItems);
-            System.out.println(targetClosetItems);
-            return new ResponseEntity<>(targetClosetItems, HttpStatus.OK);
-            //return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, series), HttpStatus.OK);
+        }
+//        else if (size != null && selectSeries != null) {
+////            System.out.println(size);
+////            System.out.println(selectSeries);
+////            System.out.println(closetItemRepository.findBySizeAndSeries(size, selectSeries));
+//            System.out.println("tf?");
+//            for(ClosetItemEntity item : sizeFilteredClosetItems) {
+////                System.out.println(item.getModel());
+//                if(item.getSeries().equals(selectSeries)) {
+//                    targetClosetItems.add(item);
+//                }
+//            }
+////            System.out.println(sizeFilteredClosetItems);
+////            System.out.println(targetClosetItems);
+//            return new ResponseEntity<>(targetClosetItems, HttpStatus.OK);
+////            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, selectSeries), HttpStatus.OK);
+//        }
+        else {
+            System.out.println("conditionals finally work");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, selectSeries), HttpStatus.OK);
         }
 
     }
