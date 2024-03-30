@@ -46,7 +46,7 @@ public class ClosetController {
         ArrayList<ClosetItemEntity> targetClosetItems = new ArrayList<ClosetItemEntity>();
 
         if (size == null && selectSeries == null && gender == null && season == null && bodyPart == null) {
-            System.out.println("size, series, gender, season and part are null");
+            System.out.println("size, series, gender, season and part are all null");
 
             return new ResponseEntity<>(closetItemRepository.findAll(), HttpStatus.OK);
 
@@ -54,17 +54,113 @@ public class ClosetController {
             System.out.println("everything but size is null");
             return new ResponseEntity<>(sizeFilteredClosetItems, HttpStatus.OK);
 
-        } else if(size == null && selectSeries!= null && gender == null && season == null && bodyPart == null) {
-            System.out.println("everything but series is null");
-            return new ResponseEntity<>(closetItemRepository.findBySeries(selectSeries), HttpStatus.OK);
-        }
-        else if (size !=null && selectSeries != null && gender == null && season == null && bodyPart == null){
-            System.out.println("gender and season and part null");
+        } else if(size == null && selectSeries == null && gender != null && season == null && bodyPart == null) {
+            System.out.println("everything but gender is null");
+            return new ResponseEntity<>(closetItemRepository.findByGender(gender), HttpStatus.OK);
+
+        } else if(size == null && selectSeries == null && gender == null && season != null && bodyPart == null) {
+            System.out.println("everything but season is null");
+            return new ResponseEntity<>(closetItemRepository.findBySeason(season), HttpStatus.OK);
+
+        }else if(size == null && selectSeries == null && gender == null && season == null && bodyPart != null) {
+            System.out.println("everything but bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findByBodyPart(bodyPart), HttpStatus.OK);
+
+        }else if(size != null && selectSeries != null && gender != null && season != null && bodyPart == null) {
+            System.out.println("searching size series gender season");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndGenderAndSeason(size, selectSeries, gender, season), HttpStatus.OK);
+
+        }else if(size != null && selectSeries != null && gender != null && season != null && bodyPart != null) {
+            System.out.println("everything has value");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndGenderAndSeasonAndBodyPart(size, selectSeries, gender, season, bodyPart), HttpStatus.OK);
+
+        }else if(size != null && selectSeries == null && gender != null && season == null && bodyPart == null) {
+            System.out.println("everything but size and gender is null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndGender(size, gender), HttpStatus.OK);
+
+        }else if(size != null && selectSeries== null && gender == null && season != null && bodyPart == null) {
+            System.out.println("everything but size and season is null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeason(size, season), HttpStatus.OK);
+
+        }else if(size != null && selectSeries == null && gender == null && season == null && bodyPart != null) {
+            System.out.println("everything but size and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndBodyPart(size, bodyPart), HttpStatus.OK);
+
+        }else if(size == null && selectSeries != null && gender != null && season == null && bodyPart == null) {
+            System.out.println("everything but series and gender is null");
+            return new ResponseEntity<>(closetItemRepository.findBySeriesAndGender(selectSeries, gender), HttpStatus.OK);
+
+        }else if(size == null && selectSeries != null && gender == null && season != null && bodyPart == null) {
+            System.out.println("everything but series and season is null");
+            return new ResponseEntity<>(closetItemRepository.findBySeriesAndSeason(selectSeries, season), HttpStatus.OK);
+
+        }else if(size == null && selectSeries != null && gender == null && season == null && bodyPart != null) {
+            System.out.println("everything but series and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findBySeriesAndBodyPart(selectSeries, bodyPart), HttpStatus.OK);
+
+        }else if(size == null && selectSeries == null && gender != null && season != null && bodyPart == null) {
+            System.out.println("everything but gender and season is null");
+            return new ResponseEntity<>(closetItemRepository.findByGenderAndSeason(gender, season), HttpStatus.OK);
+
+        }else if(size == null && selectSeries == null && gender != null && season == null && bodyPart != null) {
+            System.out.println("everything but gender and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findByGenderAndBodyPart(gender, bodyPart), HttpStatus.OK);
+
+        }else if(size == null && selectSeries == null && gender == null && season != null && bodyPart != null) {
+            System.out.println("everything but season and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findBySeasonAndBodyPart(season, bodyPart), HttpStatus.OK);
+
+        }else if(size != null && selectSeries != null && gender == null && season != null && bodyPart == null) {
+            System.out.println("everything but size series and season is null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndSeason(size, selectSeries, season), HttpStatus.OK);
+
+        }else if(size != null && selectSeries != null && gender == null && season == null && bodyPart != null) {
+            System.out.println("everything but size series and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndBodyPart(size, selectSeries, bodyPart), HttpStatus.OK);
+
+        }else if(size != null && selectSeries == null && gender != null && season != null && bodyPart == null) {
+            System.out.println("everything but size gender and season is null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndGenderAndSeason(size, gender, season), HttpStatus.OK);
+
+        }else if(size != null && selectSeries == null && gender != null && season == null && bodyPart != null) {
+            System.out.println("everything but size gender and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndGenderAndBodyPart(size, gender, bodyPart), HttpStatus.OK);
+
+        }else if(size == null && selectSeries != null && gender != null && season != null && bodyPart == null) {
+            System.out.println("everything but series gender and season is null");
+            return new ResponseEntity<>(closetItemRepository.findBySeriesAndGenderAndSeason(selectSeries, gender, season), HttpStatus.OK);
+
+        }else if(size == null && selectSeries != null && gender != null && season == null && bodyPart != null) {
+            System.out.println("everything but series gender and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findBySeriesAndGenderAndBodyPart(selectSeries, gender, bodyPart), HttpStatus.OK);
+
+        }else if(size == null && selectSeries == null && gender != null && season != null && bodyPart != null) {
+            System.out.println("everything but gender season and bodypart is null");
+            return new ResponseEntity<>(closetItemRepository.findByGenderAndSeasonAndBodyPart(gender, season, bodyPart), HttpStatus.OK);
+
+        }else if(size == null && selectSeries != null && gender != null && season != null && bodyPart != null) {
+            System.out.println("series gender season bodypart have value");
+            return new ResponseEntity<>(closetItemRepository.findBySeriesAndGenderAndSeasonAndBodyPart(selectSeries, gender, season, bodyPart), HttpStatus.OK);
+
+        }else if(size != null && selectSeries == null && gender != null && season != null && bodyPart != null) {
+            System.out.println("size gender season bodypart have value");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndGenderAndSeasonAndBodyPart(size, gender, season, bodyPart), HttpStatus.OK);
+
+        }else if(size != null && selectSeries != null && gender == null && season != null && bodyPart != null) {
+            System.out.println("size series season bodypart have value");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndSeasonAndBodyPart(size, selectSeries, season, bodyPart), HttpStatus.OK);
+
+        }else if(size != null && selectSeries != null && gender != null && season == null && bodyPart != null) {
+            System.out.println("size series gender bodypart have value");
+            return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndGenderAndBodyPart(size, selectSeries, gender, bodyPart), HttpStatus.OK);
+
+        }else if (size !=null && selectSeries != null && gender == null && season == null && bodyPart == null){
+            System.out.println("everything but size and series null");
             return new ResponseEntity<>(closetItemRepository.findBySizeAndSeries(size, selectSeries), HttpStatus.OK);
         }
 //
         else if (size !=null && selectSeries != null && gender != null && season == null && bodyPart == null){
-            System.out.println("season and part null");
+            System.out.println("size series and gender have value");
             return new ResponseEntity<>(closetItemRepository.findBySizeAndSeriesAndGender(size, selectSeries, gender), HttpStatus.OK);
         }
 
