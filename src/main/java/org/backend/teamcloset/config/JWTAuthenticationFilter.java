@@ -18,8 +18,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static jdk.internal.org.jline.utils.Colors.s;
-
 //can annotate component as... see 21:17
 //also not using requiredargsconstructor lombok
 @Component
