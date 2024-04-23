@@ -2,6 +2,7 @@ package org.backend.teamcloset.services;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 public interface JWTService {
 
