@@ -1,9 +1,8 @@
 package org.backend.teamcloset.data;
 
-import jakarta.persistence.Entity;
-import org.backend.teamcloset.models.UserEntity;
+import org.backend.teamcloset.entities.UserEntity;
+import org.backend.teamcloset.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -11,5 +10,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    Optional<User> findByUsername(String username);
+    Optional<UserEntity> findByUsername(String username);
+
+    UserEntity findByRole(Role role);
+
 }

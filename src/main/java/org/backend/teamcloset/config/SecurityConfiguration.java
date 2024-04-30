@@ -1,6 +1,6 @@
 package org.backend.teamcloset.config;
 
-import org.backend.teamcloset.models.dto.Role;
+import org.backend.teamcloset.entities.Role;
 import org.backend.teamcloset.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package org.backend.teamcloset.models.dto;
+package org.backend.teamcloset.entities;
 
 public enum Role {
 

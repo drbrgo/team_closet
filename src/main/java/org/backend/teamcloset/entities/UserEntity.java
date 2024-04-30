@@ -1,7 +1,7 @@
-package org.backend.teamcloset.models;
+package org.backend.teamcloset.entities;
 
 import jakarta.persistence.*;
-import org.backend.teamcloset.models.dto.Role;
+import org.backend.teamcloset.models.AbstractEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -56,5 +56,21 @@ public class UserEntity extends AbstractEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
