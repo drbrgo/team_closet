@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 //all methods for generating JWT or extracting data from it
@@ -26,6 +28,17 @@ public class JWTServiceImplementation implements JWTService {
                 .signWith(getSigninKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
+    public String generateRefreshToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                //expires in 7 days
+                .setExpiration(new Date(System.currentTimeMillis() + 604800000))
+                //need to look into signaturealgorithm, why hs256 and not default es256?
+                .signWith(getSigninKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

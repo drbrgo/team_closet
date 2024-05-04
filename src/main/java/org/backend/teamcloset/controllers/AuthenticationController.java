@@ -1,6 +1,8 @@
 package org.backend.teamcloset.controllers;
 
 import org.backend.teamcloset.entities.UserEntity;
+import org.backend.teamcloset.models.dto.JwtAuthenticationResponse;
+import org.backend.teamcloset.models.dto.SignInRequest;
 import org.backend.teamcloset.models.dto.SignUpRequest;
 import org.backend.teamcloset.services.AuthenticationService;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,13 @@ public class AuthenticationController {
     public ResponseEntity<UserEntity> signup(@RequestBody SignUpRequest signUpRequest) {
 
         return ResponseEntity.ok(authenticationService.signup(signUpRequest));
+
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SignInRequest signInRequest) {
+
+        return ResponseEntity.ok(authenticationService.signin(signInRequest));
 
     }
 
