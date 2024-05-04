@@ -2,6 +2,7 @@ package org.backend.teamcloset.controllers;
 
 import org.backend.teamcloset.entities.UserEntity;
 import org.backend.teamcloset.models.dto.JwtAuthenticationResponse;
+import org.backend.teamcloset.models.dto.RefreshTokenRequest;
 import org.backend.teamcloset.models.dto.SignInRequest;
 import org.backend.teamcloset.models.dto.SignUpRequest;
 import org.backend.teamcloset.services.AuthenticationService;
@@ -35,6 +36,13 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SignInRequest signInRequest) {
 
         return ResponseEntity.ok(authenticationService.signin(signInRequest));
+
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtAuthenticationResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+
+        return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
 
     }
 

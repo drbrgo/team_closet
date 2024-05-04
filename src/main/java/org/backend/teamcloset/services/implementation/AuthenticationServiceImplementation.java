@@ -4,6 +4,7 @@ import org.backend.teamcloset.data.UserRepository;
 import org.backend.teamcloset.entities.UserEntity;
 import org.backend.teamcloset.entities.Role;
 import org.backend.teamcloset.models.dto.JwtAuthenticationResponse;
+import org.backend.teamcloset.models.dto.RefreshTokenRequest;
 import org.backend.teamcloset.models.dto.SignInRequest;
 import org.backend.teamcloset.models.dto.SignUpRequest;
 import org.backend.teamcloset.services.AuthenticationService;
@@ -63,5 +64,28 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 
         return jwtAuthenticationResponse;
 
+    }
+
+    public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+
+        String username = jwtService.extractUsername(refreshTokenRequest.getToken());
+
+        UserEntity user = userRepository.findByUsername(username).orElseThrow();
+
+        //checks if user equals user in database
+        if(jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
+            //creates new token with updated expiration date
+            var jwt = jwtService.generateToken(user);
+
+            //send response
+            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+            jwtAuthenticationResponse.setToken(jwt);
+            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
+            return jwtAuthenticationResponse;
+
+        }
+
+        //if token is not valid then return null
+        return null;
     }
 }
