@@ -22,6 +22,7 @@ public class UserServiceImplementation implements UserService {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                System.out.println("username "+ username + " not found");
                 return null;
             }
         };

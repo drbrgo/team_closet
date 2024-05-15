@@ -26,7 +26,8 @@ public class TeamclosetApplication implements CommandLineRunner {
 			UserEntity user = new UserEntity();
 			user.setUsername("admin");
 			user.setRole(Role.ADMIN);
-			user.setPassword(new BCryptPasswordEncoder().encode("${ADMIN_PASS"));
+			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+			//${ADMIN_PASS}
 			userRepository.save(user);
 		}
 	}

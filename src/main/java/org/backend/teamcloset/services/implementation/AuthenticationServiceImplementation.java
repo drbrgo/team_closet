@@ -49,6 +49,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
         //verify and validate username and password
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword()));
 
+        System.out.println("username: "+signInRequest.getUsername()+" password: "+signInRequest.getPassword());
         var user = userRepository.findByUsername(signInRequest.getUsername()).orElseThrow(
                 () -> new IllegalArgumentException("Try again. Username or password is invalid!"));
 

@@ -25,6 +25,7 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
+
     @PostMapping("/signup")
     public ResponseEntity<UserEntity> signup(@RequestBody SignUpRequest signUpRequest) {
 
