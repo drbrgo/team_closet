@@ -50,7 +50,8 @@ public class JWTServiceImplementation implements JWTService {
     }
 
     private Key getSigninKey() {
-        byte [] key = Decoders.BASE64.decode("aG9nZGFtbWl0");
+        //minimum length of at least 256 bits
+        byte [] key = Decoders.BASE64.decode("NDEzRjQ0Mjg0NzJCNEI2MjUwNjU1MzY4NTY2RDU5NzAzMzczMzY3NjM5NzkyNDQyMjY0NTI5NDg0MDRENjM1MQ==");
         return Keys.hmacShaKeyFor(key);
     }
 
