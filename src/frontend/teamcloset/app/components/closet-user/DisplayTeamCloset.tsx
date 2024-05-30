@@ -35,7 +35,7 @@ export default function DisplayTeamCloset() {
     useEffect(function() {
         const getClosetItems = async() => {
 
-            await fetch(webUrl + "/closet/getclosetitems" + "?" + (sizeFilter ? `size=${sizeFilter}` : "") + "&" + (seriesFilter ? `selectSeries=${seriesFilter}` : "") + 
+            await fetch(webUrl + "/api/v1/auth/closet/getclosetitems" + "?" + (sizeFilter ? `size=${sizeFilter}` : "") + "&" + (seriesFilter ? `selectSeries=${seriesFilter}` : "") + 
             "&" + (genderFilter ? `gender=${genderFilter}` : "") + "&" + (seasonFilter ? `season=${seasonFilter}` : "") + "&" + (bodyPartFilter ? `bodyPart=${bodyPartFilter}` : ""))
             .then(response => response.json())
             .then(data => {

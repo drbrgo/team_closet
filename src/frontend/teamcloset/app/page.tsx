@@ -1,6 +1,16 @@
+'use client'
+
+import LoginForm from "./components/authentication/LoginForm";
+import React, { useState } from 'react';
+
+
 export default function Home() {
   return (
+    <div>
     <p>home page!</p>
+    <br></br>
+    <LoginForm />
+    </div>
   )
 }
 
