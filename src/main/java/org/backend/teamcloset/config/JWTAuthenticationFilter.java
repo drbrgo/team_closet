@@ -37,6 +37,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         //get auth header from request
         final String authHeader = request.getHeader("Authorization");
+        //shows that token is received
+        System.out.println(authHeader);
         //store jwt in this string
         final String jwt;
         //store username in this string
@@ -49,6 +51,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         jwt = authHeader.substring(7);
         username = jwtService.extractUsername(jwt);
+        //show that token is properly formatted
+//        System.out.println("token: "+jwt);
+//        //show that username is properly extracted
+//        System.out.println("extracted username: "+username);
 
         //another null check
         if(org.apache.commons.lang3.StringUtils.isNotEmpty(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -60,6 +66,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
+
+                System.out.println("conditions met so far");
+                System.out.println(userDetails.getAuthorities().toString());
+                //returns an empty array
 
                 token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
