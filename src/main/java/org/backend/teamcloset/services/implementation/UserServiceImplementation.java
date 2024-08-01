@@ -35,12 +35,17 @@ public class UserServiceImplementation implements UserService {
                     return new UsernameNotFoundException("User not found");
                 });
 
-                System.out.println("User found: " + username);
+                System.out.println("User found: " + username + "role: " + user.getRole());
+
+                // Map role to a string role -- solved security config not reading roles properly issue
+                String role = String.valueOf(user.getRole());
+
                 return
                         //new CustomUserDetails(user); // CustomUserDetails should implement UserDetails
                         User.withUsername(user.getUsername())
                                 .password(user.getPassword())
 //                                .authorities("USER") // Modify this as needed
+                                .authorities(role)
                                 .accountExpired(false)
                                 .accountLocked(false)
                                 .credentialsExpired(false)

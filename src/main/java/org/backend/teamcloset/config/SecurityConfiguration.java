@@ -40,9 +40,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
                         .permitAll()
                         //path for admin api
-                        .requestMatchers("/api/v1/admin/**").hasAnyAuthority(Role.ADMIN.name())
+                        .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN")
                         //path for user api
-                        .requestMatchers("/api/v1/user/**").hasAnyAuthority(Role.USER.name())
+                        .requestMatchers("/api/v1/user/**").hasAnyAuthority("USER", "ADMIN")
+                        //authenticate all other requests
                         .anyRequest().authenticated())
 
                     //disable session management
