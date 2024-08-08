@@ -37,12 +37,16 @@ public class SecurityConfiguration {
         //disable csrf
         http.csrf(AbstractHttpConfigurer::disable)
                 //pass authentication controller path to request matchers
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
+                //allow unauthenticated to reach signin/signup
+                .authorizeHttpRequests(request -> request.requestMatchers("/signup", "/signin", "/refresh")
+                        //changed from request.requestMatchers("/api/v1/auth/**")
                         .permitAll()
                         //path for admin api
-                        .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                        //changed from .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN")
                         //path for user api
-                        .requestMatchers("/api/v1/user/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/closet/**").hasAnyAuthority("USER", "ADMIN")
+                        //changed from requestMatchers("/api/v1/user/**").hasAnyAuthority("USER", "ADMIN")
                         //authenticate all other requests
                         .anyRequest().authenticated())
 

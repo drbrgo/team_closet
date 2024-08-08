@@ -13,7 +13,7 @@ const LoginForm = (props) => {
   // manage error message
   const [errorMessage, setErrorMessage] = useState('');
 
-  const webUrl = "http://localhost:8080/api/v1/auth/signin"; 
+  const webUrl = "http://localhost:8080/signin"; 
 
   const router = useRouter();
 
