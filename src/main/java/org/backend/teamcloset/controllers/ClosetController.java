@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @CrossOrigin
-@RequestMapping(value = "/closet")
+@RequestMapping(value = "/api/v1/auth/closet")
 public class ClosetController {
 
     @Autowired
