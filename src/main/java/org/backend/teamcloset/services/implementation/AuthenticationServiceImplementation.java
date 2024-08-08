@@ -49,13 +49,15 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
         //verify and validate username and password
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword()));
 
-        System.out.println("username: "+signInRequest.getUsername()+" password: is a secret");
-        var user = userRepository.findByUsername(signInRequest.getUsername()).orElseThrow(
+        //print to check method was called
+        //System.out.println("username: "+signInRequest.getUsername()+" password: is a secret");
+
+        UserEntity user = userRepository.findByUsername(signInRequest.getUsername()).orElseThrow(
                 () -> new IllegalArgumentException("Try again. Username or password is invalid!"));
 
-        var jwt = jwtService.generateToken(user);
+        String jwt = jwtService.generateToken(user);
 
-        var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+        String refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
         JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
 
@@ -76,7 +78,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
         //checks if user equals user in database
         if(jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
             //creates new token with updated expiration date
-            var jwt = jwtService.generateToken(user);
+            String jwt = jwtService.generateToken(user);
 
             //send response
             JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
